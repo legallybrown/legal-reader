@@ -5,19 +5,23 @@ import useSummary from '/src/hooks/useSummary'; // Adjust import path as needed
 function Home() {
   const [originalText, setOriginalText] = useState('');
   const [showSummary, setShowSummary] = useState(false);
+  const [selectedModel, setSelectedModel] = useState('gpt-4'); // Default to GPT-4
 
   // Call your useSummary hook with the original text
-  const summary = useSummary(originalText);
+  const summary = useSummary(originalText, selectedModel);
 
   const handleTextExtracted = (extractedText) => {
-    console.log('Extracted Text:', extractedText);
     setOriginalText(extractedText);
     setShowSummary(true);
   };
 
   return (
     <div>
-      <h1>File Upload</h1>
+      <h1>Contract Review</h1>
+      <div style={{ display: 'flex', padding: '20px' }} onChange={(e) => setSelectedModel(e.target.value)}>
+        <input type="radio" value="gpt-3.5-turbo-16k" name="model" checked={selectedModel === 'gpt-3.5-turbo-16k'} /> GPT-3.5 (turbo-16k)
+        <input type="radio" value="gpt-4" name="model" checked={selectedModel === 'gpt-4'} /> GPT-4
+      </div>
       <FileUpload onTextExtracted={handleTextExtracted} />
       {showSummary && (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>

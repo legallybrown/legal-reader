@@ -14,9 +14,11 @@ export default async (req, res) => {
       apiKey: process.env.OPENAI_API_KEY
     });
 
+    const modelName = req.body.selectedModel || 'gpt-3.5-turbo-16k'; // Use the selected model or a default one
+
     const gptResponse = await openai.chat.completions.create({
         messages: [{ role: 'user', content: `You're an expert commercial lawyer. Summarize the following text and explain what the purpose of the document is, the key legal provisions in it, and anything you consider to be unusual. Use headings to structure your response. Here is the text:\n\n${text}` }],
-        model: 'gpt-3.5-turbo-16k',
+        model: modelName,
       });
     console.log('gpt response is', gptResponse.choices[0].message);
     if (Array.isArray(gptResponse.choices) && gptResponse.choices[0] && gptResponse.choices[0].message && typeof gptResponse.choices[0].message.content === 'string') {
