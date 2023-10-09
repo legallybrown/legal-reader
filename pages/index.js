@@ -1,37 +1,38 @@
-import React, { useState } from 'react';
-import FileUpload from '../components/FileUpload';
-import useSummary from '../src/hooks/useSummary'; // Adjust the path based on your folder structure
+import React, { useState, useEffect } from 'react';
+import FileUpload from '/components/FileUpload';
+import useSummary from '/src/hooks/useSummary'; // Adjust import path as needed
 
-const Home = () => {
-  const [text, setText] = useState(''); // State to store extracted text
-  const [showSummary, setShowSummary] = useState(false); // New state to control whether to show summary
-  const summary = useSummary(showSummary ? text : ''); // Only pass text to hook if showSummary is true
+function Home() {
+  const [originalText, setOriginalText] = useState('');
+  const [showSummary, setShowSummary] = useState(false);
+
+  // Call your useSummary hook with the original text
+  const summary = useSummary(originalText);
 
   const handleTextExtracted = (extractedText) => {
     console.log('Extracted Text:', extractedText);
-    setText(extractedText); // Set the extracted text when file is uploaded
-    setShowSummary(false); // Reset showSummary state when new text is extracted
+    setOriginalText(extractedText);
+    setShowSummary(true);
   };
 
   return (
     <div>
       <h1>File Upload</h1>
       <FileUpload onTextExtracted={handleTextExtracted} />
-      {text && (
-        <>
-          <h2>Original Text</h2>
-          <p>{text}</p>
-          <button onClick={() => setShowSummary(true)}>Generate Summary</button> {/* Button to trigger summary */}
-        </>
-      )}
-      {showSummary && summary && (
-        <>
-          <h2>Summary</h2>
-          <p>{summary}</p>
-        </>
+      {showSummary && (
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ width: '45%' }}>
+            <h2>Original Text</h2>
+            <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{originalText}</pre>
+          </div>
+          <div style={{ width: '45%' }}>
+            <h2>Summary</h2>
+            <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{summary}</pre>
+          </div>
+        </div>
       )}
     </div>
   );
-};
+}
 
 export default Home;
