@@ -15,6 +15,7 @@ export default async (req, res) => {
     });
 
     const modelName = req.body.selectedModel || 'gpt-3.5-turbo-16k'; // Use the selected model or a default one
+    console.log('model in summarize is', modelName)
 
     const gptResponse = await openai.chat.completions.create({
         messages: [{ role: 'user', content: `You're an expert commercial lawyer. Summarize the following text and explain what the purpose of the document is, the key legal provisions in it, and anything you consider to be unusual. Use headings to structure your response. Here is the text:\n\n${text}` }],
