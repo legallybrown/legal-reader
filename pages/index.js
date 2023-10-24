@@ -7,7 +7,7 @@ import litigationLegalPositions from '/components/litigationLegalPositions'
 function Home() {
   const [originalText, setOriginalText] = useState('');
   const [showSummary, setShowSummary] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('gpt-4');
+  const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo-16k');
   const [selectedPosition, setSelectedPosition] = useState('');
   const [standardPositions, setStandardPositions] = useState([commercialLegalPositions, litigationLegalPositions]);
   const [customPositions, setCustomPositions] = useState([]);
