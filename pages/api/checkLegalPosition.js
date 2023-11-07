@@ -12,8 +12,10 @@ export default async (req, res) => {
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     
     // Construct a message for GPT
-    const message = `You're an expert commercial lawyer. Analyze the following text against these legal positions: ${position.name}. Suggest what changes need to be made for compliance. Here is the text:\n\n${text}`;
-    const modelName = req.body.selectedModel || 'gpt-3.5-turbo-16k'; // Use the selected model or a default one
+    const message = `You're an expert commercial lawyer that never misses a key issue or point. Analyze the following text against these legal positions: ${position.name}. Suggest what changes need to be made for compliance. Here is the text:\n\n${text}`;
+    const modelName = req.body.model || 'gpt-3.5-turbo-1106'; // Use the selected model or a default one
+    console.log('model in check legal positions is', modelName)
+
     const gptResponse = await openai.chat.completions.create({
       messages: [{ role: 'user', content: message }],
       model: modelName

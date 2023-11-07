@@ -1,4 +1,3 @@
-// pages/api/summarize.js
 import OpenAI from 'openai';
 
 export default async (req, res) => {
@@ -13,15 +12,15 @@ export default async (req, res) => {
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY
     });
+    console.log('requested model is ***', req.body.model)
+    const modelName = req.body.model || 'gpt-3.5-turbo-1106'; // Use the selected model or a default one
+    console.log('model  in summarize is', modelName)
 
-    const modelName = req.body.selectedModel || 'gpt-3.5-turbo-16k'; // Use the selected model or a default one
-    console.log('model in summarize is', modelName)
 
     const gptResponse = await openai.chat.completions.create({
-        messages: [{ role: 'user', content: `You're an expert commercial lawyer. Summarize the following text and explain what the purpose of the document is, the key legal provisions in it, and anything you consider to be unusual. Use headings to structure your response. Here is the text:\n\n${text}` }],
+        messages: [{ role: 'user', content: `You're an expert commercial lawyer that never misses a key issue or point. Summarize the following text and explain what the purpose of the document is, the key legal provisions in it, and anything you consider to be unusual. Use headings to structure your response. Here is the text:\n\n${text}` }],
         model: modelName,
       });
-    console.log('gpt response is', gptResponse.choices[0].message);
     if (Array.isArray(gptResponse.choices) && gptResponse.choices[0] && gptResponse.choices[0].message && typeof gptResponse.choices[0].message.content === 'string') {
       const summary = gptResponse.choices[0].message.content.trim();
       return res.status(200).json({ summary });

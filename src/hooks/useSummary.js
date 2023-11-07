@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useSummary = (text) => {
+const useSummary = (text, selectedModel) => {
   const [summary, setSummary] = useState('');
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const useSummary = (text) => {
           const response = await fetch('/api/summarize', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ text }),
+            body: JSON.stringify({ text, model: selectedModel }),
           });
           const data = await response.json();
           setSummary(data.summary); // Assumes the summary is returned under the 'summary' key in the response

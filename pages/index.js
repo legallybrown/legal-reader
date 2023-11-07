@@ -7,7 +7,7 @@ import litigationLegalPositions from '/components/litigationLegalPositions'
 function Home() {
   const [originalText, setOriginalText] = useState('');
   const [showSummary, setShowSummary] = useState(false);
-  const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo-16k');
+  const [selectedModel, setSelectedModel] = useState('gpt-3.5-turbo-1106');
   const [selectedPosition, setSelectedPosition] = useState('');
   const [standardPositions, setStandardPositions] = useState([commercialLegalPositions, litigationLegalPositions]);
   const [customPositions, setCustomPositions] = useState([]);
@@ -63,8 +63,8 @@ useEffect(() => {
     <div>
       <h1>Document Review</h1>
       <div style={{ display: 'flex', padding: '20px' }} onChange={(e) => setSelectedModel(e.target.value)}>
-        <input type="radio" value="gpt-3.5-turbo-16k" name="model" checked={selectedModel === 'gpt-3.5-turbo-16k'} onChange={(e) => setSelectedModel(e.target.value)} /> GPT-3.5 (turbo-16k)
-        <input type="radio" value="gpt-4" name="model" checked={selectedModel === 'gpt-4'} onChange={(e) => setSelectedModel(e.target.value)}  /> GPT-4
+        <input type="radio" value="gpt-3.5-turbo-1106" name="model" checked={selectedModel === 'gpt-3.5-turbo-1106'} onChange={(e) => setSelectedModel(e.target.value)} /> GPT-3.5 (turbo-16k)
+        <input type="radio" value="gpt-4-1106-preview" name="model" checked={selectedModel === 'gpt-4-1106-preview'} onChange={(e) => setSelectedModel(e.target.value)}  /> GPT-4 (turbo)
       </div>
       <FileUpload onTextExtracted={handleTextExtracted} />
       {showSummary && (
