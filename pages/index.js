@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FileUpload from '/components/FileUpload';
+import styles from './index.module.css';
 import useSummary from '/src/hooks/useSummary'; // Adjust import path as needed
 import commercialLegalPositions from '/components/commercialLegalPositions'
 import litigationLegalPositions from '/components/litigationLegalPositions'
@@ -61,26 +62,28 @@ useEffect(() => {
 
   return (
     <div>
-      <h1>Document Review</h1>
-      <div style={{ display: 'flex', padding: '20px' }} onChange={(e) => setSelectedModel(e.target.value)}>
-        <input type="radio" value="gpt-3.5-turbo-1106" name="model" checked={selectedModel === 'gpt-3.5-turbo-1106'} onChange={(e) => setSelectedModel(e.target.value)} /> GPT-3.5 (turbo-16k)
-        <input type="radio" value="gpt-4-1106-preview" name="model" checked={selectedModel === 'gpt-4-1106-preview'} onChange={(e) => setSelectedModel(e.target.value)}  /> GPT-4 (turbo)
+      <h1 className={styles.title}>Document Checker</h1>
+      <div className={styles.label} onChange={(e) => setSelectedModel(e.target.value)}>
+        <input type="radio" value="gpt-3.5-turbo-1106" name="model" checked={selectedModel === 'gpt-3.5-turbo-1106'} onChange={(e) => setSelectedModel(e.target.value)} /> GPT-3.5
+        <input type="radio" value="gpt-4-1106-preview" name="model" checked={selectedModel === 'gpt-4-1106-preview'} onChange={(e) => setSelectedModel(e.target.value)}  /> GPT-4
       </div>
-      <FileUpload onTextExtracted={handleTextExtracted} />
+      <div>
+        <FileUpload className={styles.formContainer} onTextExtracted={handleTextExtracted} />
+      </div>
       {showSummary && (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div style={{ width: '45%' }}>
-            <h2>Original Text</h2>
-            <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', padding: '50px 0 50px 50px', border: '1px solid grey' }}>{originalText}</pre>
+        <div className={styles.container}>
+          <div className={styles.smallContainer}>
+            <h2 className={styles.title}>Uploaded Text</h2>
+            <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{originalText}</pre>
           </div>
-          <div style={{ width: '45%' }}>
-            <h2>Summary</h2>
-            <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word',  padding: '50px 0 50px 50px', border: '1px solid grey' }}>{summary}</pre>
+          <div className={styles.smallContainer}>
+            <h2 className={styles.title} >Document Summary</h2>
+            <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{summary}</pre>
           </div>
         {analysis && (  // <-- Conditional rendering of analysis result
-            <div style={{ width: '45%' }}>
-              <h2>Legal Analysis</h2>
-              <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word', padding: '50px 0 50px 50px', border: '1px solid grey' }}>
+            <div className={styles.smallContainer}>
+              <h2 className={styles.title}>Legal Analysis</h2>
+              <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word'}}>
                 {analysis}
               </pre>
             </div>
