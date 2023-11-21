@@ -204,6 +204,18 @@
     gap: 10px;
 }
 
+.rightButton {
+    padding: 12px 24px;
+    align-items: in;
+    border: none;
+    border-radius: 32px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0 auto;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
 .button, .buttonSecondary, .copyButton, .editPromptButton {
     padding: 12px 24px;
     border: none;
@@ -309,6 +321,12 @@
 
 .editButton:hover {
     background-color: #81209a;
+}
+
+.centre {
+    margin: auto;
+    width: 50%;
+    margin-top: 20px;
 }
 
 .responseGroup {
